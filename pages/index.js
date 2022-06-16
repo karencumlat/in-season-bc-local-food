@@ -95,9 +95,17 @@ export default function Home() {
             ))}
           </select>
         </div>
-        {/** Grid */}
+        {/** Grid Filtered Food*/}
         <div className="flex align-center justify-center flex-wrap max-w-none sm:w-full">
           {filteredFood.map((food) => {
+            const foodQuality = food.season
+              .filter((e) => {
+                return e.month === month;
+              })
+              .map((e) => {
+                return e.quality;
+              });
+
             return (
               //Food Card
               <a
@@ -112,7 +120,9 @@ export default function Home() {
                   height={300}
                 /> */}
                 <h2 className="text-2xl mb-6 capitalize">{food.name}</h2>
-                <p className="m-0 text-lg leading-6">{food.category}</p>
+                <p className="m-0 text-s leading-6 capitalize">
+                  {food.category + ' • ' + foodQuality}
+                </p>
               </a>
             );
           })}
