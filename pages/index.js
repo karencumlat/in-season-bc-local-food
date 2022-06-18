@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import Layout from './components/layout';
+import Header from './components/header';
 import styles from '../styles/Home.module.css';
 import { food } from './api/food';
 import { months } from './api/months';
@@ -44,17 +46,10 @@ export default function Home() {
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
 
-      <main className="flex py-7 flex-1 flex-col justify-center items-center">
-        <div className="flex">
-          <Image
-            src="/images/in-season-logo.png"
-            alt="In Season Logo"
-            width={666}
-            height={375}
-          />
-        </div>
-        <p className="my-16 text-2xl text-center leading-6">
-          What is in season in BC?
+      <main className="flex py-4 flex-1 flex-col justify-center items-center">
+        <Header />
+        <p className="my-8 text-2xl text-center leading-6">
+          What is in season in South Western BC?
         </p>
         {/** Filter: Month */}
         <div>
@@ -108,22 +103,29 @@ export default function Home() {
 
             return (
               //Food Card
-              <a
-                href="#"
-                className="m-4 p-6 text-left text-inherit no-underline border border-solid border-slate-300 rounded-xl transition-colors max-w-xs hover:text-green-800 hover:border-green-800 focus:text-green-800 focus:border-green-800 active:text-green-800 active:border-green-800"
+              <Link
+                href={{
+                  pathname: '/food',
+                  query: {
+                    name: food.name,
+                    category: food.category,
+                  },
+                }}
                 key={food.name}
               >
-                {/* <Image
+                <a className="m-4 p-6 text-left text-inherit no-underline border border-solid border-slate-300 rounded-xl transition-colors max-w-xs hover:text-green-800 hover:border-green-800 focus:text-green-800 focus:border-green-800 active:text-green-800 active:border-green-800">
+                  {/* <Image
                   src="https://source.unsplash.com/random/300x300"
                   alt={`Picture of `}
                   width={300}
                   height={300}
                 /> */}
-                <h2 className="text-2xl mb-6 capitalize">{food.name}</h2>
-                <p className="m-0 text-s leading-6 capitalize">
-                  {food.category + ' • ' + foodQuality}
-                </p>
-              </a>
+                  <h2 className="text-2xl mb-6 capitalize">{food.name}</h2>
+                  <p className="m-0 text-s leading-6 capitalize">
+                    {food.category + ' • ' + foodQuality}
+                  </p>
+                </a>
+              </Link>
             );
           })}
         </div>
